@@ -1,10 +1,10 @@
 // Component (Greeting.js)
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchGreetings } from "../store/greetingsSlice";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchGreetings } from '../store/greetingsSlice';
 
 const Greeting = () => {
-  const { greetings, isLoading } = useSelector(state => state.greetings);
+  const { greetings, isLoading } = useSelector((state) => state.greetings);
   const dispatch = useDispatch();
 
   useEffect(() => {
