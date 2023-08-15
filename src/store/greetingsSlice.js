@@ -1,5 +1,5 @@
+// greetingsSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 
 const apiUrl = 'http://localhost:3000/api/greetings'
 
@@ -13,8 +13,7 @@ export const fetchGreetings = createAsyncThunk('greetings/fetchGreetings', async
  try {
   const res = await fetch(apiUrl)
   const data = await res.json()
-  console.log(data);
-  return data
+  return data.greeting; // Directly return the greeting property
  } catch (error) {
   throw new Error('failed to fetch greetings')
  }
@@ -28,12 +27,11 @@ const greetingsSlice = createSlice({
   builder.addCase(fetchGreetings.pending, (state)=>{
    state.isLoading = true
   })
-  .addCase(fetchGreetings.fulfilled((state, action)=>{
+  .addCase(fetchGreetings.fulfilled, (state, action)=>{
    state.isLoading = false
-   state.greetings = action.payload
-   console.log(state.greetings);
+   state.greetings = action.payload; // Update the greeting directly
    state.error = null
-  }))
+  })
   .addCase(fetchGreetings.rejected, (state, action)=>{
    state.isLoading = false
    state.error = action.error.message
@@ -41,4 +39,4 @@ const greetingsSlice = createSlice({
  }
 })
 
-export default greetingsSlice.reducer
+export default greetingsSlice.reducer;
